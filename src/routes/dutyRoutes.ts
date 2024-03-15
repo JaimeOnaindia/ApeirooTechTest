@@ -4,9 +4,9 @@ import { createDuty, getAllDuties, getDutyById, updateDuty, deleteDuty } from '.
 
 const router = express.Router();
 
-router.post('/', createDuty);
 router.get('/', getAllDuties);
 router.get('/:id', getDutyById);
+router.post('/', createDuty);
 router.put('/:id', updateDuty);
 router.delete('/:id', deleteDuty);
 

@@ -10,7 +10,7 @@ const createDuty = async (req, res) => {
     try {
         const { name } = req.body;
         const id = (0, uuid_1.v4)();
-        await databaseConfig_1.default.none('INSERT INTO duties (id, name) VALUES ($1, $2)', [id, name]);
+        await databaseConfig_1.default.none('INSERT INTO Duty (id, name) VALUES ($1, $2)', [id, name]);
         res.status(201).json({ id, name });
     }
     catch (error) {
@@ -21,7 +21,7 @@ const createDuty = async (req, res) => {
 exports.createDuty = createDuty;
 const getAllDuties = async (_req, res) => {
     try {
-        const duties = await databaseConfig_1.default.any('SELECT * FROM duties');
+        const duties = await databaseConfig_1.default.any('SELECT * FROM Duty');
         res.json(duties);
     }
     catch (error) {
@@ -33,7 +33,7 @@ exports.getAllDuties = getAllDuties;
 const getDutyById = async (req, res) => {
     try {
         const { id } = req.params;
-        const duty = await databaseConfig_1.default.oneOrNone('SELECT * FROM duties WHERE id = $1', id);
+        const duty = await databaseConfig_1.default.oneOrNone('SELECT * FROM Duty WHERE id = $1', id);
         if (duty) {
             res.json(duty);
         }
@@ -51,7 +51,7 @@ const updateDuty = async (req, res) => {
     try {
         const { id } = req.params;
         const { name } = req.body;
-        await databaseConfig_1.default.none('UPDATE duties SET name = $1 WHERE id = $2', [name, id]);
+        await databaseConfig_1.default.none('UPDATE Duty SET name = $1 WHERE id = $2', [name, id]);
         res.json({ id, name });
     }
     catch (error) {
@@ -63,7 +63,7 @@ exports.updateDuty = updateDuty;
 const deleteDuty = async (req, res) => {
     try {
         const { id } = req.params;
-        await databaseConfig_1.default.none('DELETE FROM duties WHERE id = $1', id);
+        await databaseConfig_1.default.none('DELETE FROM Duty WHERE id = $1', id);
         res.sendStatus(204);
     }
     catch (error) {
