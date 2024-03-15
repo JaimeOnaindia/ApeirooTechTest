@@ -10,10 +10,10 @@ const createDuty = async (req, res, next) => {
     try {
         const { id, name } = req.body;
         await databaseConfig_1.default.none('INSERT INTO duties (id, name) VALUES ($1, $2)', [id, name]);
-        res.status(201).json({ id, name });
+        res.status(201).json({ 'created': true, id, name });
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next); // Maneja el error utilizando el middleware errorHandler
+        (0, errorHandler_1.default)(error, req, res, next);
     }
 };
 exports.createDuty = createDuty;
@@ -23,7 +23,7 @@ const getAllDuties = async (req, res, next) => {
         res.json(duties);
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next); // Maneja el error utilizando el middleware errorHandler
+        (0, errorHandler_1.default)(error, req, res, next);
     }
 };
 exports.getAllDuties = getAllDuties;
@@ -35,11 +35,11 @@ const getDutyById = async (req, res, next) => {
             res.json(duty);
         }
         else {
-            res.status(404).send('Duty no encontrado');
+            res.status(404).json({ message: 'Duty no encontrado' });
         }
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next); // Maneja el error utilizando el middleware errorHandler
+        (0, errorHandler_1.default)(error, req, res, next);
     }
 };
 exports.getDutyById = getDutyById;
@@ -51,7 +51,7 @@ const updateDuty = async (req, res, next) => {
         res.json({ id, name });
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next); // Maneja el error utilizando el middleware errorHandler
+        (0, errorHandler_1.default)(error, req, res, next);
     }
 };
 exports.updateDuty = updateDuty;
@@ -59,10 +59,10 @@ const deleteDuty = async (req, res, next) => {
     try {
         const { id } = req.params;
         await databaseConfig_1.default.none('DELETE FROM duties WHERE id = $1', id);
-        res.sendStatus(204);
+        res.json({ 'deleted': 1 });
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next); // Maneja el error utilizando el middleware errorHandler
+        (0, errorHandler_1.default)(error, req, res, next);
     }
 };
 exports.deleteDuty = deleteDuty;
