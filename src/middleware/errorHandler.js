@@ -13,5 +13,6 @@ const errorHandler = (err, req, res, next) => {
     }
     console.error('Error:', err);
     res.status(500).send('Error interno del servidor');
+    return;
 };
 exports.default = errorHandler;
