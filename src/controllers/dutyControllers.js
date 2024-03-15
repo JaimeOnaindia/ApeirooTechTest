@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteDuty = exports.updateDuty = exports.getDutyById = exports.getAllDuties = exports.createDuty = void 0;
 const databaseConfig_1 = __importDefault(require("../config/databaseConfig"));
-const errorHandler_1 = __importDefault(require("../middleware/errorHandler"));
 const createDuty = async (req, res, next) => {
     try {
         const { id, name } = req.body;
@@ -13,7 +12,7 @@ const createDuty = async (req, res, next) => {
         res.status(201).json({ 'created': true, id, name });
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next);
+        next(error);
     }
 };
 exports.createDuty = createDuty;
@@ -23,7 +22,7 @@ const getAllDuties = async (req, res, next) => {
         res.json(duties);
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next);
+        next(error);
     }
 };
 exports.getAllDuties = getAllDuties;
@@ -39,7 +38,7 @@ const getDutyById = async (req, res, next) => {
         }
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next);
+        next(error);
     }
 };
 exports.getDutyById = getDutyById;
@@ -48,10 +47,10 @@ const updateDuty = async (req, res, next) => {
         const { id } = req.params;
         const { name } = req.body;
         await databaseConfig_1.default.none('UPDATE duties SET name = $1 WHERE id = $2', [name, id]);
-        res.json({ id, name });
+        res.json({ 'created': true, id, name });
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next);
+        next(error);
     }
 };
 exports.updateDuty = updateDuty;
@@ -62,7 +61,7 @@ const deleteDuty = async (req, res, next) => {
         res.json({ 'deleted': 1 });
     }
     catch (error) {
-        (0, errorHandler_1.default)(error, req, res, next);
+        next(error);
     }
 };
 exports.deleteDuty = deleteDuty;
