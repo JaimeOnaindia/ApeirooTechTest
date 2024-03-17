@@ -29,7 +29,7 @@ export const getDutyById = async (req: Request, res: Response, next: NextFunctio
     if (duty) {
       res.json(duty);
     } else {
-      res.status(404).json({message: 'Duty no encontrado'});
+      res.status(404).json({message: 'Id not found'});
     }
   } catch (error) {
     next(error);
@@ -50,12 +50,17 @@ export const updateDuty = async (req: Request, res: Response, next: NextFunction
 export const deleteDuty = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
-    await db.none('DELETE FROM duties WHERE id = $1', id);
-    res.json({'deleted': 1});
+    const result = await db.result('DELETE FROM duties WHERE id = $1', id);
+    if (result.rowCount === 0) {
+      res.status(404).json({'message': 'Id not found'});
+    } else {
+      res.json({'deleted': true});
+    }
   } catch (error) {
     next(error);
   }
 };
+
 
 module.exports = {
   getAllDuties,

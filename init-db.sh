@@ -1,0 +1,1 @@
+psql -U userdev -d dutydb -c "CREATE TABLE duties (id SERIAL PRIMARY KEY, name VARCHAR(255));"
