@@ -45,6 +45,17 @@ describe('Duties Controller', () => {
             expect(response.body).toEqual({ message: 'La clave primaria ya existe' });
           });
       });
+    it('should return 400 for invalid input type error', async () => {
+        const dutyData: Duty = { id: 1, name: 'Existing Duty' };
+        jest.mocked(db.none).mockRejectedValueOnce({ code: '22P02' });
+        await supertest(app)
+          .put('/duties/1')
+          .send(dutyData)
+          .expect(400)
+          .then((response) => {
+            expect(response.body).toEqual({ message: 'Error de inserción de tipo inválido' });
+          });
+      });
   });
 
   describe('getAllDuties', () => {
