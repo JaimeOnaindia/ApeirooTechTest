@@ -9,5 +9,6 @@ COPY . .
 
 EXPOSE 3000
 
-# Comando para iniciar la aplicación
-CMD ["node", "dist/server.js"]
+RUN npm run build
+
+ENTRYPOINT ["node", "dist/server.js"]

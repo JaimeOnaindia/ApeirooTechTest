@@ -15,7 +15,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "build": "tsc"
     },
     "repository": {
         "type": "git",
