@@ -22,6 +22,8 @@ cd <NOMBRE_DEL_DIRECTORIO_DEL_PROYECTO>
 
 docker-compose up
 
+# Es necesario acceder al contenedor y crear la Tabla duties por primera vez.
+
 docker exec -it <NOMBRE_DEL_CONTENEDOR_DE_POSTGRES> /bin/bash
 
 psql -U userdev -d dutydb -c "CREATE TABLE duties (id SERIAL PRIMARY KEY, name VARCHAR(255));"
