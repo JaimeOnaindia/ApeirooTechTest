@@ -19,8 +19,7 @@ cd <NOMBRE_DEL_DIRECTORIO_DEL_PROYECTO>
 
 ## Levantar la Aplicación con Docker Compose
 
-
-docker-compose up
+docker compose up
 
 # Es necesario acceder al contenedor y crear la Tabla duties por primera vez.
 
